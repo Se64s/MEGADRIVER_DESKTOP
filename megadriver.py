@@ -43,7 +43,20 @@ class MegadriverApp(ttk.Frame):
 
     def __init__(self):
         super().__init__()
+        
+        # Init logger for class
         self.log = logging.getLogger('megaGui')
+        self.log.setLevel(logging.DEBUG)
+
+        logFormatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        
+        logHandler = logging.StreamHandler()
+        logHandler.setLevel(logging.DEBUG)
+        logHandler.setFormatter(logFormatter)
+        
+        self.log.addHandler(logHandler)
+
+        # Init Root frame
         self.master.resizable(0, 0)
         self.master.iconbitmap("megadriver.ico") 
         self.initUI()
@@ -593,23 +606,6 @@ class MegadriverApp(ttk.Frame):
 
 
 def main():
-
-    # create logger
-    logger = logging.getLogger('megaGui')
-    logger.setLevel(logging.DEBUG)
-
-    # define log formatter
-    logFormatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-    # create console handler and set level to debug
-    logHandler = logging.StreamHandler()
-    logHandler.setLevel(logging.DEBUG)
-    logHandler.setFormatter(logFormatter)
-
-    # add handler to logger
-    logger.addHandler(logHandler)
-
-    # create GUI
     root = tk.Tk()
     app = MegadriverApp()
     root.mainloop()
