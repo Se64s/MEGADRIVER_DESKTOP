@@ -472,8 +472,9 @@ class MegadriverApp(tk.Frame):
 
 
     def updateStatus(self, eventData):
-        varData = int(eventData.widget.get())
-        self.varStatus.set("%d" % (varData))
+        varData = eventData.widget.get()
+        if type(varData) is float:
+            self.varStatus.set("%d" % (int(varData)))
 
 
     def sendCommand(self):
