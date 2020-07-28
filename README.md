@@ -17,9 +17,10 @@ A tool to setup easily all FM parameters and load VGI instruments templates on M
 $ pip install python-rtmidi
 ```
 
-## Usage
+## Firmware repo
 
-TODO
+The firmware for synth board is available on [MEGADRIVER](https://github.com/Se64s/MEGADRIVER).
+
 
 ## Versioning
 
