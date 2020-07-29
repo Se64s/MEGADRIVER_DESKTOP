@@ -91,6 +91,7 @@ class YM2612Chip:
             retval = True
         else:
             self.logger.info("Not init")
+        time.sleep(0.1)
         return retval
 
     def __get_LFO(self):
