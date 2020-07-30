@@ -480,14 +480,15 @@ class MegadriverApp(tk.Frame):
     def sendCommand(self):
         self.log.info('Send Command')
         presetSlot = self.varPresetCombo.get()
+        self.syncDriver()
         if presetSlot == 'Live':
             self.log.info('Live Update')
-            self.syncDriver()
             self.FmChip.midi_set_reg_values()
         else:
-            self.log.info('Update slot %d' % (int(presetSlot)))
-            self.FmChip.midi_set_reg_values()
-            self.FmChip.midi_save_preset(int(presetSlot), presetSlot)
+            presetVar = int(presetSlot)
+            self.log.info('Update slot %d' % (presetVar))
+            self.FmChip.midi_save_preset(presetVar, "PRESET %d" % presetVar)
+            self.FmChip.midi_load_preset(presetVar)
 
 
     def selectMidiPortCombo(self, event):
