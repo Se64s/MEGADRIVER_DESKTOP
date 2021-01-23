@@ -10,7 +10,7 @@ import struct
 import logging
 
 # Defined constants
-YM_MAX_NUM_USER_PRESETS = 8
+YM_MAX_NUM_USER_PRESETS = 5
 YM_MAX_NUM_DEFAULT_PRESETS = 8
 
 # Num voices
@@ -30,6 +30,9 @@ YM_PRESET_DX_PIANO = 0
 YM_PRESET_GUITAR = 1
 YM_PRESET_SAWTOOTH = 2
 YM_PRESET_SONIC = 3
+
+# Minimun elay between commands
+YM_MIDI_DELAY = 0.2
 
 class YM2612Chip:
     """
@@ -91,7 +94,7 @@ class YM2612Chip:
             retval = True
         else:
             self.logger.info("Not init")
-        time.sleep(0.1)
+        time.sleep(YM_MIDI_DELAY)
         return retval
 
     def __get_LFO(self):
@@ -224,9 +227,10 @@ class YM2612Chip:
             cmd_payload.append(preset_pos)
             # Preset name
             format_preset_name = "{:<15}".format(preset_name)
-            for str_ch in format_preset_name:
-                cmd_payload.append((ord(str_ch) >> 0) & 0x0F)
-                cmd_payload.append((ord(str_ch) >> 4) & 0x0F)
+            preset_name_bytes = format_preset_name.encode()
+            for str_ch in preset_name_bytes:
+                cmd_payload.append((str_ch >> 0) & 0x0F)
+                cmd_payload.append((str_ch >> 4) & 0x0F)
             # Register data
             cmd_payload.extend(self.__get_reg_values_array())
             # Send command

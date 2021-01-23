@@ -487,7 +487,7 @@ class MegadriverApp(tk.Frame):
         else:
             presetVar = int(presetSlot)
             self.log.info('Update slot %d' % (presetVar))
-            self.FmChip.midi_save_preset(presetVar, "PRESET %d" % presetVar)
+            self.FmChip.midi_save_preset(presetVar, "USER PRESET %d" % presetVar)
             self.FmChip.midi_load_preset(presetVar)
 
 
